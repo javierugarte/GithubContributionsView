@@ -12,10 +12,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GitHubContributionsView gitHubContributionsView =
+        // JavierUgarte
+        GitHubContributionsView contributionJavierugarte =
                 (GitHubContributionsView) findViewById(R.id.github_contributions_view);
+        contributionJavierugarte.setUserName("javierugarte");
 
-        gitHubContributionsView.init();
+
+        // Alorma
+        GitHubContributionsView contributionAlorma =
+                (GitHubContributionsView) findViewById(R.id.github_contributions_view2);
+        contributionAlorma.setUserName("alorma");
 
     }
 }
