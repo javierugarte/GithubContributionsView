@@ -8,7 +8,7 @@ import java.util.Locale;
  * Copyright 2016 Javier González
  * All right reserved.
  */
-public class UtilsDate {
+public class DatesUtils {
 
     /**
      * Get the day of week from a date.
@@ -46,6 +46,40 @@ public class UtilsDate {
         calendar.add(Calendar.SECOND, 0);
         SimpleDateFormat month_date = new SimpleDateFormat("MMM", Locale.US);
         return month_date.format(calendar.getTime());
+    }
+
+    /**
+     * Return if the date given is a first week of mount
+     *
+     * @param year The year of the date.
+     * @param month The month of the date.
+     * @param day The day of the date.
+     * @return true or false
+     */
+    public static boolean isFirstWeekOfMount(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month-1, day);
+        calendar.add(Calendar.SECOND, 0);
+        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+
+        return calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH) == 1;
+    }
+
+    /**
+     * Return if the date given is a first day of week
+     *
+     * @param year The year of the date.
+     * @param month The month of the date.
+     * @param day The day of the date.
+     * @return true or false
+     */
+    public static boolean isFirstDayOfWeek(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month-1, day);
+        calendar.add(Calendar.SECOND, 0);
+        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+
+        return calendar.get(Calendar.DAY_OF_WEEK) == 1;
     }
 
     /**

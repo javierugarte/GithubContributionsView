@@ -1,4 +1,4 @@
-package com.github.javierugarte.githubcontributionsview;
+package com.github.javierugarte;
 
 import org.junit.Test;
 

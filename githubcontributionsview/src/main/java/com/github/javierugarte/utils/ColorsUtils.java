@@ -6,7 +6,7 @@ import android.graphics.Color;
  * Copyright 2016 Javier González
  * All right reserved.
  */
-public class UtilsColor {
+public class ColorsUtils {
 
     /**
      * Calculate the value for different color.

@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
                 (GitHubContributionsView) findViewById(R.id.github_contributions_view);
         if (contributionJavierugarte != null) {
             contributionJavierugarte.setBaseColor("#d6e685");
-            contributionJavierugarte.setTextColor("#d6e685");
             contributionJavierugarte.displayText(true);
             contributionJavierugarte.loadUserName("javierugarte");
         }
@@ -27,8 +26,7 @@ public class MainActivity extends AppCompatActivity {
         GitHubContributionsView contributionAlorma =
                 (GitHubContributionsView) findViewById(R.id.github_contributions_view2);
         if (contributionAlorma != null) {
-            contributionAlorma.setBaseColor("#F44336");
-            contributionAlorma.displayText(false);
+            contributionAlorma.setBaseColor("#FF8A80");
             contributionAlorma.loadUserName("alorma");
         }
 
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         GitHubContributionsView contributionMikePenz =
                 (GitHubContributionsView) findViewById(R.id.github_contributions_view3);
         if (contributionMikePenz != null) {
-            contributionMikePenz.setBaseColor("#9C27B0");
+            contributionMikePenz.setBaseColor("#EA80FC");
             contributionMikePenz.displayText(true);
             contributionMikePenz.loadUserName("mikepenz");
         }
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         GitHubContributionsView contributionJakeWharton =
                 (GitHubContributionsView) findViewById(R.id.github_contributions_view4);
         if (contributionJakeWharton != null) {
-            contributionJakeWharton.setBaseColor("#3F51B5");
+            contributionJakeWharton.setBaseColor("#8C9EFF");
             contributionJakeWharton.displayText(false);
             contributionJakeWharton.loadUserName("JakeWharton");
         }
