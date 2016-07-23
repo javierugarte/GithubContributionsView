@@ -3,35 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:orientation="vertical" >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:text="javierugarte"
         tools:ignore="HardcodedText" />
 
     <com.github.javierugarte.GitHubContributionsView
         android:id="@+id/github_contributions_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:text="alorma"
         tools:ignore="HardcodedText" />
 
     <com.github.javierugarte.GitHubContributionsView
         android:id="@+id/github_contributions_view2"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Mike Penz"
+        tools:ignore="HardcodedText" />
+
+    <com.github.javierugarte.GitHubContributionsView
+        android:id="@+id/github_contributions_view3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Jake Wharton"
+        tools:ignore="HardcodedText" />
+
+    <com.github.javierugarte.GitHubContributionsView
+        android:id="@+id/github_contributions_view4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" />
 
 </LinearLayout>

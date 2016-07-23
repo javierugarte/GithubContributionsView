@@ -8,6 +8,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.javierugarte.listeners.OnContributionsListener;
+import com.github.javierugarte.listeners.OnContributionsRequestListener;
 
 import java.util.List;
 
@@ -15,17 +17,17 @@ import java.util.List;
  * Copyright 2016 Javier González
  * All right reserved.
  */
-public class GitHubContributionsRequest {
+public class ContributionsRequest {
 
     private static final String URL = "https://github.com/users/%s/contributions";
 
     private final Context mContext;
 
-    public GitHubContributionsRequest(Context context) {
+    public ContributionsRequest(Context context) {
         this.mContext = context;
     }
 
-    public void launchRequest(String username, final GithubContributionsListener listener) {
+    public void launchRequest(String username, final OnContributionsRequestListener listener) {
 
         String url = String.format(URL, username);
 
@@ -50,8 +52,4 @@ public class GitHubContributionsRequest {
         requestQueue.add(strReq);
     }
 
-    public interface GithubContributionsListener {
-        void onResponse(List<ContributionsDay> contributionsDay);
-        void onError(VolleyError error);
-    }
 }
