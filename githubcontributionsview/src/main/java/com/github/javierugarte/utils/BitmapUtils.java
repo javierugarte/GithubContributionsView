@@ -19,25 +19,22 @@ public class BitmapUtils {
             int bitmapWidth,
             int baseColor,
             int textColor,
-            boolean displayText) {
+            boolean displayMonth) {
 
         Bitmap bitmap;
         Canvas canvas;
         Paint blockPaint;
         Paint monthTextPaint;
-        Paint weekDayTextPaint;
 
-        int daysForWeek = 7;
+        int verticalBlockNumber = 7;
+        int horizontalBlockNumber = getHorizontalBlockNumber(contributions.size(), verticalBlockNumber);
 
-        int verticalBlockNumber = daysForWeek;
-        int horizontalBlockNumber = contributions.size() / daysForWeek;
+        float marginBlock = 0.8F;
+        float blockWidth = (bitmapWidth / horizontalBlockNumber) * marginBlock;
+        float spaceWidth = (bitmapWidth / horizontalBlockNumber) - blockWidth;
 
-        float marginBlock = 0.9F;
-        float blockWidth = bitmapWidth / horizontalBlockNumber * marginBlock;
-        float spaceWidth = bitmapWidth / (horizontalBlockNumber) - blockWidth;
-        float monthTextHeight = (displayText) ? blockWidth * 1.5F : 0;
-        float weekTextHeight = (displayText) ? blockWidth : 0;
-        float topMargin = 7f;
+        float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
+        float topMargin = (displayMonth) ? 7f : 0;
 
         int bitmapHeight = (int)(monthTextHeight + topMargin
                 + verticalBlockNumber * (blockWidth + spaceWidth));
@@ -51,31 +48,13 @@ public class BitmapUtils {
         monthTextPaint.setTextSize(monthTextHeight);
         monthTextPaint.setColor(textColor);
 
-        weekDayTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        weekDayTextPaint.setTextSize(weekTextHeight);
-        weekDayTextPaint.setColor(textColor);
-
-        // draw the text for weekdays
-        float textStartHeight = (monthTextHeight + topMargin)
-                + blockWidth + spaceWidth;
-        Paint.FontMetricsInt fontMetrics = monthTextPaint.getFontMetricsInt();
-        float baseline = (
-                textStartHeight + blockWidth +
-                        textStartHeight -
-                        fontMetrics.bottom - fontMetrics.top) / 2;
-        canvas.drawText(DatesUtils.getWeekdayFirstLetter((1) % 7),
-                0, baseline, weekDayTextPaint);
-        canvas.drawText(DatesUtils.getWeekdayFirstLetter((3) % 7),
-                0, baseline + 2 * (blockWidth + spaceWidth), weekDayTextPaint);
-        canvas.drawText(DatesUtils.getWeekdayFirstLetter((5) % 7),
-                0, baseline + 4 * (blockWidth + spaceWidth), weekDayTextPaint);
-
         // draw the blocks
         int currentWeekDay = DatesUtils.getWeekDayFromDate(
                 contributions.get(0).year,
                 contributions.get(0).month,
                 contributions.get(0).day);
-        float x = weekTextHeight + topMargin;
+
+        float x = topMargin;
         float y = (currentWeekDay - 7) % 7
                 * (blockWidth + spaceWidth)
                 + (topMargin + monthTextHeight);
@@ -104,4 +83,9 @@ public class BitmapUtils {
         return bitmap;
     }
 
+    private static int getHorizontalBlockNumber(int total, int divider) {
+        boolean isInteger = (total / divider) % 7 == 0;
+        int result = total / divider;
+        return (isInteger) ? result : result + 1;
+    }
 }

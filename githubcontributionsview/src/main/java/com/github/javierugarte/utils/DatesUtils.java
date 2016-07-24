@@ -82,23 +82,4 @@ public class DatesUtils {
         return calendar.get(Calendar.DAY_OF_WEEK) == 1;
     }
 
-    /**
-     * Get the first letter of a weekday.
-     *
-     * @param weekDay Integer from 0 to 6 for weekday.
-     * @return The first letter for the weekday.
-     */
-    public static String getWeekdayFirstLetter(int weekDay) {
-        switch (weekDay) {
-            case 0: return "S";
-            case 1: return "M";
-            case 2: return "T";
-            case 3: return "W";
-            case 4: return "T";
-            case 5: return "F";
-            case 6: return "S";
-            default: return "";
-        }
-    }
-
 }
