@@ -44,6 +44,12 @@ public class GitHubContributionsView extends ImageView {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    /**
+     * Set a base color for blocks.
+     * The tone depends on the number of contributions for a day.
+     * Supported formats See {@link Color#parseColor(String)}
+     * @param baseColor base color supported formats
+     */
     public void setBaseColor(String baseColor) {
         try {
             this.baseColor = Color.parseColor(baseColor);
@@ -53,11 +59,21 @@ public class GitHubContributionsView extends ImageView {
         refresh();
     }
 
+    /**
+     * Set a base color for blocks.
+     * The tone depends on the number of contributions for a day.
+     * @param color resource color
+     */
     public void setBaseColor(int color) {
         this.baseColor = color;
         refresh();
     }
 
+    /**
+     * Set a text color for month names.
+     * Supported formats See {@link Color#parseColor(String)}
+     * @param textColor text color supported formats
+     */
     public void setTextColor(String textColor) {
         try {
             this.textColor = Color.parseColor(textColor);
@@ -67,20 +83,43 @@ public class GitHubContributionsView extends ImageView {
         refresh();
     }
 
+    /**
+     * Set a text color for month names.
+     * @param textColor resource color
+     */
     public void setTextColor(int textColor) {
         this.textColor = textColor;
         refresh();
     }
 
+    /**
+     * Set if you want to see the name of the months
+     * If you send true, the component height increase
+     * @param displayMonth true or false
+     */
     public void displayMonth(boolean displayMonth) {
         this.displayMonth = displayMonth;
         refresh();
     }
 
+    /**
+     * Load and show contributions information for a user / organization
+     * @param username also, can be an organization
+     */
     public void loadUserName(String username) {
         loadUserName(username, null);
     }
 
+    /**
+     * Load and show contributions information for a user / organization.
+     * Responds if it has been loaded successfully or an error has occurred.
+     * @param username also, can be an organization.
+     * @param listener OnContributionsRequestListener
+     *                 onResponse(View, bitmap)
+     *                 onError(int cause)
+     *                      1: No load information
+     *                      2: No generate the bitmap
+     */
     public void loadUserName(String username, final OnContributionsListener listener) {
         this.username = username;
 
@@ -95,10 +134,15 @@ public class GitHubContributionsView extends ImageView {
                 Bitmap bitmap = BitmapUtils.getContributionsBitmap(contributionsDay, getMeasuredWidth(), baseColor,
                         textColor, displayMonth);
 
-                setImageBitmap(bitmap);
+                if (bitmap != null) {
+                    setImageBitmap(bitmap);
+                    if (listener != null)
+                        listener.onResponse(GitHubContributionsView.this, bitmap);
+                } else {
+                    if (listener != null)
+                        listener.onError(2);
+                }
 
-                if (listener != null)
-                    listener.onResponse(GitHubContributionsView.this, bitmap);
             }
 
             @Override
@@ -112,11 +156,17 @@ public class GitHubContributionsView extends ImageView {
 
     }
 
+    /**
+     * Clean de component.
+     */
     public void clearContribution() {
         invalidate();
         setImageBitmap(null);
     }
 
+    /**
+     * Refresh component with all information.
+     */
     private void refresh() {
         loadUserName(this.username);
     }
