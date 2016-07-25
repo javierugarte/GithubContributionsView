@@ -4,9 +4,6 @@ GithubContributionsView
 
 <img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/github.png" width="600">
 
-## Download sample
-Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/apk/sample_debug.apk)
-
 ##You can customize the color
 
 <img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/red.png" width="500">
@@ -19,8 +16,10 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 
 <img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/pink.png" width="500">
 
+## Download sample
+Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/apk/sample-debug.apk)
 
-##Download
+##Download library
 
 - Using Gradle
 
