@@ -43,14 +43,32 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 ## How to use this library
 
 
+- xml
+
+```xml
+
+	<com.github.javierugarte.GitHubContributionsView
+        android:id="@+id/github_contributions_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+	
+```
+
 - java
 
 ```java
 
 	GitHubContributionsView contributionView = (GitHubContributionsView) 
 		findViewById(R.id.github_contributions_view);
-    contributionView.loadUserName("javierugarte");
+	contributionView.loadUserName("javierugarte");
 	
+```
+
+By default, the base color is #d6e685 (the first image) and no display the months. You can change this properties.
+
+```java
+	contributionView.setBaseColor("#FF8A80");
+	contributionView.displayMonth(true);        
 ```
 
 ## Contribute
