@@ -1,24 +1,31 @@
 GithubContributionsView
 =======
+ [ ![Download](https://api.bintray.com/packages/javiergm/maven/GithubContributionsView/images/download.svg) ](https://bintray.com/javiergm/maven/GithubContributionsView/_latestVersion)
+
+<img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/github.png" width="600">
+
+## Download sample
+Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/apk/sample_debug.apk)
+
+##You can customize the color
+
+<img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/red.png" width="500">
+
+<img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/blue.png" width="500">
+
+<img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/blue_gray.png" width="500">
+
+<img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/green.png" width="500">
+
+<img src="https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/pink.png" width="500">
 
 
-Sample app. Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/apk/sample_debug.apk)
-
-![Screen](https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/screen_app.png)
-
-You can customize the color
-
-![Color red](https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/red.png)
-
-![Color red](https://raw.githubusercontent.com/javierugarte/GithubContributionsView/master/resources/images/blue.png)
-
-## Download
-
+##Download
 
 - Using Gradle
 
 ```groovy
-    compile 'com.github.javierugarte: githubcontributionsview:1.0.0'
+    compile 'com.github.javierugarte:githubcontributionsview:1.0.0'
 ```
 
 - Using Maven
@@ -26,7 +33,7 @@ You can customize the color
 ```xml
     <dependency>
         <groupId>com.github.javierugarte</groupId>
-        <artifactId> githubcontributionsview </artifactId>
+        <artifactId>githubcontributionsview</artifactId>
         <version>1.0.0</version>
         <type>pom</type>
     </dependency>
@@ -40,7 +47,8 @@ You can customize the color
 
 ```java
 
-	GitHubContributionsView contributionView = (GitHubContributionsView) findViewById(R.id.github_contributions_view);
+	GitHubContributionsView contributionView = (GitHubContributionsView) 
+		findViewById(R.id.github_contributions_view);
     contributionView.loadUserName("javierugarte");
 	
 ```
@@ -48,7 +56,7 @@ You can customize the color
 ## Contribute
 
 ## About me
-Javier González - [jugarte.es](http://jugarte.es)
+####Javier González - [jugarte.es](http://jugarte.es)
 
 ## License
 
