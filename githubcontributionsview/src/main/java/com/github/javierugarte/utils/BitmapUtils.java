@@ -29,9 +29,9 @@ public class BitmapUtils {
         int verticalBlockNumber = 7;
         int horizontalBlockNumber = getHorizontalBlockNumber(contributions.size(), verticalBlockNumber);
 
-        float marginBlock = 0.8F;
-        float blockWidth = (bitmapWidth / horizontalBlockNumber) * marginBlock;
-        float spaceWidth = (bitmapWidth / horizontalBlockNumber) - blockWidth;
+        float marginBlock = (1.0F - 0.1F);
+        float blockWidth = bitmapWidth / (float) horizontalBlockNumber * marginBlock;
+        float spaceWidth = bitmapWidth / (float)  horizontalBlockNumber - blockWidth;
 
         float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
         float topMargin = (displayMonth) ? 7f : 0;
