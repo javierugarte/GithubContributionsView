@@ -24,7 +24,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 - Using Gradle
 
 ```groovy
-    compile 'com.github.javierugarte:githubcontributionsview:1.0.0'
+    compile 'com.github.javierugarte:githubcontributionsview:1.0.1'
 ```
 
 - Using Maven
@@ -33,7 +33,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
     <dependency>
         <groupId>com.github.javierugarte</groupId>
         <artifactId>githubcontributionsview</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <type>pom</type>
     </dependency>
 ```
