@@ -13,7 +13,7 @@ public class ContributionsProvider {
     public final static String DATA_STRING = "data-count=\"";
     public final static String DATE_STRING = "data-date=\"";
 
-    public List<ContributionsDay> getContributions(String string) {
+    public List<ContributionsDay> getContributions(String string, int lastWeeks) {
         ArrayList<ContributionsDay> contributions = new ArrayList<>();
         int fillPos = -1;
         int dataPos = -1;
@@ -54,6 +54,16 @@ public class ContributionsProvider {
             ));
         }
 
-        return contributions;
+        return getLastContributions(contributions, lastWeeks);
+    }
+
+    private List<ContributionsDay> getLastContributions(
+            ArrayList<ContributionsDay> contributions,
+            int lastWeeks) {
+
+        int lastWeekDays = contributions.size() % 7;
+        int lastDays = (lastWeekDays > 0) ? lastWeekDays + (lastWeeks-1) * 7 : lastWeeks * 7;
+
+        return contributions.subList(contributions.size()-lastDays, contributions.size());
     }
 }

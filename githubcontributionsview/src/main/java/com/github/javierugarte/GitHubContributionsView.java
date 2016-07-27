@@ -26,6 +26,7 @@ public class GitHubContributionsView extends ImageView {
     private int textColor = Color.BLACK;
     private boolean displayMonth = false;
     private String username = "";
+    private int lastWeeks = 53;
 
     public GitHubContributionsView(Context context) {
         super(context);
@@ -93,6 +94,22 @@ public class GitHubContributionsView extends ImageView {
     }
 
     /**
+     * Set the number of weeks that you want to display.
+     * You can set minimum 2 weeks but is not recommended. 1 week is impossible.
+     * You can set maximum 53 weeks (1 year = 52.14 weeks).
+     * By default is 53 (52 weeks and the current week).
+     * @param lastWeeks number of week (2..53)
+     */
+    public void setLastWeeks(int lastWeeks) {
+        if (lastWeeks >= 2 && lastWeeks <= 53) {
+            this.lastWeeks = lastWeeks;
+            refresh();
+        } else {
+            throw new RuntimeException("The last weeks should be a number between 2 and 53");
+        }
+    }
+
+    /**
      * Set if you want to see the name of the months
      * If you send true, the component height increase
      * @param displayMonth true or false
@@ -127,6 +144,8 @@ public class GitHubContributionsView extends ImageView {
 
         ContributionsRequest contributionsRequest =
                 new ContributionsRequest(getContext());
+
+        contributionsRequest.setLastWeeks(lastWeeks);
 
         contributionsRequest.launchRequest(username, new OnContributionsRequestListener() {
             @Override

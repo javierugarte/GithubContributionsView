@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText mUsernameEditText;
     private Button mSearchUser;
 
+    private EditText mLastWeekEditText;
+    private Button mLastWeekButton;
+
     private EditText mBaseColorEditText;
     private Button mChangeColorButton;
 
@@ -39,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mSearchUser.performClick();
-
 
         mBaseColorEditText = (EditText) findViewById(R.id.et_base_color);
         mChangeColorButton = (Button) findViewById(R.id.btn_color);
@@ -51,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mLastWeekEditText = (EditText) findViewById(R.id.et_last_weeks);
+        mLastWeekButton = (Button) findViewById(R.id.btn_last_weeks);
+        mLastWeekButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int number = Integer.parseInt(mLastWeekEditText.getText().toString());
+                mContributionView.setLastWeeks(number);
+            }
+        });
+
+        mSearchUser.performClick();
+
         mSwitchMonth = (Switch) findViewById(R.id.switch_display_month);
         mSwitchMonth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -58,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 mContributionView.displayMonth(isChecked);
             }
         });
+
+        mSearchUser.performClick();
 
     }
 }

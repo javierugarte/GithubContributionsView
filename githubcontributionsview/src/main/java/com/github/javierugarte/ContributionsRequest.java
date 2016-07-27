@@ -22,9 +22,14 @@ public class ContributionsRequest {
     private static final String URL = "https://github.com/users/%s/contributions";
 
     private final Context mContext;
+    private int lastWeeks;
 
     public ContributionsRequest(Context context) {
         this.mContext = context;
+    }
+
+    public void setLastWeeks(int lastWeeks) {
+        this.lastWeeks = lastWeeks;
     }
 
     public void launchRequest(String username, final OnContributionsRequestListener listener) {
@@ -37,7 +42,7 @@ public class ContributionsRequest {
             @Override
             public void onResponse(String response) {
                 ContributionsProvider provider = new ContributionsProvider();
-                List<ContributionsDay> contributions = provider.getContributions(response);
+                List<ContributionsDay> contributions = provider.getContributions(response, lastWeeks);
                 listener.onResponse(contributions);
             }
 
