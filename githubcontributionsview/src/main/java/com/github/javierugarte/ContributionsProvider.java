@@ -54,16 +54,6 @@ public class ContributionsProvider {
             ));
         }
 
-        return getLastContributions(contributions, lastWeeks);
-    }
-
-    private List<ContributionsDay> getLastContributions(
-            ArrayList<ContributionsDay> contributions,
-            int lastWeeks) {
-
-        int lastWeekDays = contributions.size() % 7;
-        int lastDays = (lastWeekDays > 0) ? lastWeekDays + (lastWeeks-1) * 7 : lastWeeks * 7;
-
-        return contributions.subList(contributions.size()-lastDays, contributions.size());
+        return contributions;
     }
 }
