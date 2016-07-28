@@ -180,9 +180,9 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         super.onDraw(canvas);
 
         if (contributions != null) {
-           drawOnCanvas(canvas);
+            drawOnCanvas(canvas);
         } else {
-            canvas.drawColor(Color.TRANSPARENT);
+            drawPlaceholder(canvas);
         }
     }
 
@@ -229,6 +229,46 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
                         DatesUtils.getShortMonthName(day.year, day.month, day.day+1),
                         x, monthTextHeight, monthTextPaint);
                 }
+
+            } else {
+                y += blockWidth + spaceWidth;
+            }
+
+        }
+    }
+
+    private void drawPlaceholder(Canvas canvas) {
+        canvas.getClipBounds(rect);
+
+        int width = rect.width();
+
+        int verticalBlockNumber = 7;
+        int horizontalBlockNumber = getHorizontalBlockNumber(lastWeeks * 7, verticalBlockNumber);
+
+        float marginBlock = (1.0F - 0.1F);
+        float blockWidth = width / (float) horizontalBlockNumber * marginBlock;
+        float spaceWidth = width / (float)  horizontalBlockNumber - blockWidth;
+
+        float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
+
+        monthTextPaint.setTextSize(monthTextHeight);
+
+        float topMargin = (displayMonth) ? 7f : 0;
+
+        float x = topMargin;
+        float y = 0
+                * (blockWidth + spaceWidth)
+                + (topMargin + monthTextHeight);
+
+        for (int i = 1; i < ((lastWeeks + 1) * 7) + 1; i++) {
+
+                blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, 0));
+            canvas.drawRect(x, y, x + blockWidth, y + blockWidth, blockPaint);
+
+            if (i % 7 == 0) {
+                // another column
+                x += blockWidth + spaceWidth;
+                y = topMargin + monthTextHeight;
 
             } else {
                 y += blockWidth + spaceWidth;
