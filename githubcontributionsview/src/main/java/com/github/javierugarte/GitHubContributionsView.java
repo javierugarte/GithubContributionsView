@@ -210,7 +210,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
             contributions.get(0).month,
             contributions.get(0).day);
 
-        float x = topMargin;
+        float x = 0;
         float y = (currentWeekDay - 7) % 7
             * (blockWidth + spaceWidth)
             + (topMargin + monthTextHeight);
