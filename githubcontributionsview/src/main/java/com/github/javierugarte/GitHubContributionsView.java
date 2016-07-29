@@ -2,16 +2,20 @@ package com.github.javierugarte;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
+import com.github.javierugarte.githubcontributionsview.R;
 import com.github.javierugarte.listeners.OnContributionsRequestListener;
 import com.github.javierugarte.utils.ColorsUtils;
 import com.github.javierugarte.utils.DatesUtils;
@@ -25,12 +29,23 @@ import java.util.List;
 
 public class GitHubContributionsView extends View implements OnContributionsRequestListener {
 
-    private int baseColor = Color.parseColor("#d6e685"); // default color of GitHub
-    private int baseBackgroundColor = Color.TRANSPARENT;
+    private static final String INSTANCE_STATE = "saved_instance";
+    private static final String INSTANCE_BASE_COLOR = "saved_base_color";
+    private static final String INSTANCE_BACKGROUND_BASE_COLOR = "saved_bg_base_color";
+    private static final String INSTANCE_TEXT_COLOR = "saved_text_color";
+    private static final String INSTANCE_DISPLAY_MONTH = "saved_display_month";
+    private static final String INSTANCE_LAST_WEEKS= "saved_last_weeks";
+    private static final String INSTANCE_USERNAME = "saved_username";
+
+    private static final String BASE_COLOR = "#D6E685"; // default of Github
+
+    private int baseColor = Color.parseColor(BASE_COLOR);
+    private int backgroundBaseColor = Color.TRANSPARENT;
     private int textColor = Color.BLACK;
     private boolean displayMonth = false;
-    private String username = "";
     private int lastWeeks = 53;
+    private String username;
+
     private List<ContributionsDay> contributions;
     private List<ContributionsDay> contributionsFilter;
     private Rect rect;
@@ -39,31 +54,48 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
 
     public GitHubContributionsView(Context context) {
         super(context);
-        init();
+        init(context, null, 0, 0);
     }
 
     public GitHubContributionsView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs, 0, 0);
     }
 
     public GitHubContributionsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public GitHubContributionsView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    private void init() {
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+
+        final TypedArray attributes = context.getTheme().obtainStyledAttributes(
+                attrs, R.styleable.GitHubContributionsView, defStyleAttr, defStyleRes);
+        initAttributes(attributes);
+
         rect = new Rect();
 
         monthTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         blockPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         blockPaint.setStyle(Paint.Style.FILL);
+    }
+
+    protected void initAttributes(TypedArray attributes) {
+        baseColor = attributes.getColor(R.styleable.GitHubContributionsView_baseColor, baseColor);
+        backgroundBaseColor = attributes.getColor(R.styleable.GitHubContributionsView_backgroundBaseColor, backgroundBaseColor);
+        textColor = attributes.getColor(R.styleable.GitHubContributionsView_textColor, textColor);
+        displayMonth = attributes.getBoolean(R.styleable.GitHubContributionsView_displayMonth, displayMonth);
+        lastWeeks = attributes.getInt(R.styleable.GitHubContributionsView_lastWeeks, lastWeeks);
+        if (attributes.getString(R.styleable.GitHubContributionsView_username) != null) {
+            username = attributes.getString(R.styleable.GitHubContributionsView_username);
+            loadUserName(username);
+        }
     }
 
     /**
@@ -93,10 +125,10 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
 
     /**
      * Sets the background color for this contributions view.
-     * @param baseBackgroundColor the color of the background
+     * @param backgroundBaseColor the color of the background
      */
-    public void setBaseBackgroundColor(int baseBackgroundColor) {
-        this.baseBackgroundColor = baseBackgroundColor;
+    public void setBackgroundBaseColor(int backgroundBaseColor) {
+        this.backgroundBaseColor = backgroundBaseColor;
         invalidate();
     }
 
@@ -183,6 +215,35 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
     }
 
     @Override
+    protected Parcelable onSaveInstanceState() {
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
+        bundle.putInt(INSTANCE_BASE_COLOR, baseColor);
+        bundle.putInt(INSTANCE_BACKGROUND_BASE_COLOR, backgroundBaseColor);
+        bundle.putInt(INSTANCE_TEXT_COLOR, textColor);
+        bundle.putBoolean(INSTANCE_DISPLAY_MONTH, displayMonth);
+        bundle.putInt(INSTANCE_LAST_WEEKS, lastWeeks);
+        bundle.putString(INSTANCE_USERNAME, username);
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if(state instanceof Bundle) {
+            final Bundle bundle = (Bundle) state;
+            baseColor = bundle.getInt(INSTANCE_BASE_COLOR);
+            backgroundBaseColor = bundle.getInt(INSTANCE_BACKGROUND_BASE_COLOR);
+            textColor = bundle.getInt(INSTANCE_TEXT_COLOR);
+            displayMonth = bundle.getBoolean(INSTANCE_DISPLAY_MONTH);
+            lastWeeks = bundle.getInt(INSTANCE_LAST_WEEKS);
+            username = bundle.getString(INSTANCE_USERNAME);
+            super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
+            return;
+        }
+        super.onRestoreInstanceState(state);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
@@ -212,7 +273,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin + monthTextHeight);
 
         // Background
-        blockPaint.setColor(baseBackgroundColor);
+        blockPaint.setColor(backgroundBaseColor);
         canvas.drawRect(0, (topMargin + monthTextHeight), width, height + monthTextHeight, blockPaint);
 
         monthTextPaint.setColor(textColor);
@@ -274,7 +335,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin + monthTextHeight);
 
         // Background
-        blockPaint.setColor(baseBackgroundColor);
+        blockPaint.setColor(backgroundBaseColor);
         canvas.drawRect(0, (topMargin + monthTextHeight), width, height + monthTextHeight, blockPaint);
 
 
@@ -304,6 +365,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         setLayoutParams(ll);
     }
 
+    // Static helpers
     private static int getHorizontalBlockNumber(int total, int divider) {
         boolean isInteger = (total / divider) % 7 == 0;
         int result = total / divider;
