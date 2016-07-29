@@ -12,6 +12,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import com.android.volley.VolleyError;
 import com.github.javierugarte.listeners.OnContributionsRequestListener;
 import com.github.javierugarte.utils.ColorsUtils;
@@ -212,7 +215,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         float topMargin = (displayMonth) ? 7f : 0;
         float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
 
-        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin);
+        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin + monthTextHeight);
 
         // Background
         blockPaint.setColor(baseBackgroundColor);
@@ -249,8 +252,12 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
             } else {
                 y += blockWidth + spaceWidth;
             }
-
         }
+
+        // Resize component
+        LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) getLayoutParams();
+        ll.height = height;
+        setLayoutParams(ll);
     }
 
     private void drawPlaceholder(Canvas canvas) {
@@ -266,11 +273,11 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         float spaceWidth = width / (float)  horizontalBlockNumber - blockWidth;
 
         float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
-
         float topMargin = (displayMonth) ? 7f : 0;
+
         monthTextPaint.setTextSize(monthTextHeight);
 
-        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin);
+        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin + monthTextHeight);
 
         // Background
         blockPaint.setColor(baseBackgroundColor);
@@ -296,6 +303,11 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
                 y += blockWidth + spaceWidth;
             }
         }
+
+        // Resize component
+        LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) getLayoutParams();
+        ll.height = height;
+        setLayoutParams(ll);
     }
 
     private static int getHorizontalBlockNumber(int total, int divider) {
