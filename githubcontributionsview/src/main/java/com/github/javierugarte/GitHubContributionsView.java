@@ -8,9 +8,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import com.android.volley.VolleyError;
 import com.github.javierugarte.listeners.OnContributionsRequestListener;
 import com.github.javierugarte.utils.ColorsUtils;
@@ -27,6 +31,7 @@ import java.util.List;
 public class GitHubContributionsView extends View implements OnContributionsRequestListener {
 
     private int baseColor = Color.parseColor("#d6e685"); // default color of GitHub
+    private int baseBackgroundColor = Color.WHITE; // default color of GitHub
     private int textColor = Color.BLACK;
     private boolean displayMonth = false;
     private String username = "";
@@ -88,6 +93,15 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
      */
     public void setBaseColor(int color) {
         this.baseColor = color;
+        invalidate();
+    }
+
+    /**
+     * Sets the background color for this contributions view.
+     * @param baseBackgroundColor the color of the background
+     */
+    public void setBaseBackgroundColor(int baseBackgroundColor) {
+        this.baseBackgroundColor = baseBackgroundColor;
         invalidate();
     }
 
@@ -180,9 +194,9 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         super.onDraw(canvas);
 
         if (contributions != null) {
-           drawOnCanvas(canvas);
+            drawOnCanvas(canvas);
         } else {
-            canvas.drawColor(Color.TRANSPARENT);
+            drawPlaceholder(canvas);
         }
     }
 
@@ -198,11 +212,16 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         float blockWidth = width / (float) horizontalBlockNumber * marginBlock;
         float spaceWidth = width / (float)  horizontalBlockNumber - blockWidth;
 
+        float topMargin = (displayMonth) ? 7f : 0;
         float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
 
-        monthTextPaint.setTextSize(monthTextHeight);
+        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin + monthTextHeight);
 
-        float topMargin = (displayMonth) ? 7f : 0;
+        // Background
+        blockPaint.setColor(baseBackgroundColor);
+        canvas.drawRect(0, (topMargin + monthTextHeight), width, height + monthTextHeight, blockPaint);
+
+        monthTextPaint.setTextSize(monthTextHeight);
 
         // draw the blocks
         int currentWeekDay = DatesUtils.getWeekDayFromDate(
@@ -210,7 +229,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
             contributions.get(0).month,
             contributions.get(0).day);
 
-        float x = topMargin;
+        float x = 0;
         float y = (currentWeekDay - 7) % 7
             * (blockWidth + spaceWidth)
             + (topMargin + monthTextHeight);
@@ -233,8 +252,62 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
             } else {
                 y += blockWidth + spaceWidth;
             }
-
         }
+
+        // Resize component
+        LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) getLayoutParams();
+        ll.height = height;
+        setLayoutParams(ll);
+    }
+
+    private void drawPlaceholder(Canvas canvas) {
+        canvas.getClipBounds(rect);
+
+        int width = rect.width();
+
+        int verticalBlockNumber = 7;
+        int horizontalBlockNumber = getHorizontalBlockNumber(lastWeeks * 7, verticalBlockNumber);
+
+        float marginBlock = (1.0F - 0.1F);
+        float blockWidth = width / (float) horizontalBlockNumber * marginBlock;
+        float spaceWidth = width / (float)  horizontalBlockNumber - blockWidth;
+
+        float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
+        float topMargin = (displayMonth) ? 7f : 0;
+
+        monthTextPaint.setTextSize(monthTextHeight);
+
+        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin + monthTextHeight);
+
+        // Background
+        blockPaint.setColor(baseBackgroundColor);
+        canvas.drawRect(0, (topMargin + monthTextHeight), width, height + monthTextHeight, blockPaint);
+
+
+        float x = 0;
+        float y = 0
+                * (blockWidth + spaceWidth)
+                + (topMargin + monthTextHeight);
+
+        for (int i = 1; i < ((lastWeeks + 1) * 7) + 1; i++) {
+
+                blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, 0));
+            canvas.drawRect(x, y, x + blockWidth, y + blockWidth, blockPaint);
+
+            if (i % 7 == 0) {
+                // another column
+                x += blockWidth + spaceWidth;
+                y = topMargin + monthTextHeight;
+
+            } else {
+                y += blockWidth + spaceWidth;
+            }
+        }
+
+        // Resize component
+        LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) getLayoutParams();
+        ll.height = height;
+        setLayoutParams(ll);
     }
 
     private static int getHorizontalBlockNumber(int total, int divider) {

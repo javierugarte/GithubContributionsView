@@ -24,7 +24,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 - Using Gradle
 
 ```groovy
-    compile 'com.github.javierugarte:githubcontributionsview:1.0.1'
+    compile 'com.github.javierugarte:githubcontributionsview:1.1.0'
 ```
 
 - Using Maven
@@ -33,7 +33,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
     <dependency>
         <groupId>com.github.javierugarte</groupId>
         <artifactId>githubcontributionsview</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
         <type>pom</type>
     </dependency>
 ```
@@ -71,6 +71,9 @@ By default, the base color is #d6e685 (the first image) and no display the month
 ```
 
 ## Contribute
+[Issues](https://github.com/javierugarte/GithubContributionsView/issues)
+## Contributors
+* [Bernat Borrás Paronella](https://github.com/alorma)
 
 ## About me
 ####Javier González - [jugarte.es](http://jugarte.es)
