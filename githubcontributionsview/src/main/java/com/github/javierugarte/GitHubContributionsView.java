@@ -2,25 +2,20 @@ package com.github.javierugarte;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.github.javierugarte.listeners.OnContributionsRequestListener;
 import com.github.javierugarte.utils.ColorsUtils;
 import com.github.javierugarte.utils.DatesUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +26,7 @@ import java.util.List;
 public class GitHubContributionsView extends View implements OnContributionsRequestListener {
 
     private int baseColor = Color.parseColor("#d6e685"); // default color of GitHub
-    private int baseBackgroundColor = Color.WHITE; // default color of GitHub
+    private int baseBackgroundColor = Color.TRANSPARENT;
     private int textColor = Color.BLACK;
     private boolean displayMonth = false;
     private String username = "";
