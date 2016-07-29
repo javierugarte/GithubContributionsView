@@ -37,6 +37,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
     private String username = "";
     private int lastWeeks = 53;
     private List<ContributionsDay> contributions;
+    private List<ContributionsDay> contributionsFilter;
     private Rect rect;
     private Paint monthTextPaint;
     private Paint blockPaint;
@@ -138,7 +139,6 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
     public void setLastWeeks(int lastWeeks) {
         if (lastWeeks >= 2 && lastWeeks <= 53) {
             this.lastWeeks = lastWeeks;
-            contributions = getLastContributions(contributions, lastWeeks);
             invalidate();
         } else {
             throw new RuntimeException("The last weeks should be a number between 2 and 53");
@@ -165,7 +165,6 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         clearContribution();
 
         ContributionsRequest contributionsRequest = new ContributionsRequest(getContext());
-        contributionsRequest.setLastWeeks(lastWeeks);
         contributionsRequest.launchRequest(username, this);
 
     }
@@ -194,6 +193,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         super.onDraw(canvas);
 
         if (contributions != null) {
+            contributionsFilter = getLastContributions(contributions, lastWeeks);
             drawOnCanvas(canvas);
         } else {
             drawPlaceholder(canvas);
@@ -206,7 +206,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         int width = rect.width();
 
         int verticalBlockNumber = 7;
-        int horizontalBlockNumber = getHorizontalBlockNumber(contributions.size(), verticalBlockNumber);
+        int horizontalBlockNumber = getHorizontalBlockNumber(contributionsFilter.size(), verticalBlockNumber);
 
         float marginBlock = (1.0F - 0.1F);
         float blockWidth = width / (float) horizontalBlockNumber * marginBlock;
@@ -234,7 +234,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
             * (blockWidth + spaceWidth)
             + (topMargin + monthTextHeight);
 
-        for (ContributionsDay day : contributions) {
+        for (ContributionsDay day : contributionsFilter) {
             blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, day.level));
             canvas.drawRect(x, y, x + blockWidth, y + blockWidth, blockPaint);
 
@@ -262,11 +262,10 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
 
     private void drawPlaceholder(Canvas canvas) {
         canvas.getClipBounds(rect);
-
         int width = rect.width();
 
         int verticalBlockNumber = 7;
-        int horizontalBlockNumber = getHorizontalBlockNumber(lastWeeks * 7, verticalBlockNumber);
+        int horizontalBlockNumber = getHorizontalBlockNumber((lastWeeks-1) * 7, verticalBlockNumber);
 
         float marginBlock = (1.0F - 0.1F);
         float blockWidth = width / (float) horizontalBlockNumber * marginBlock;
@@ -289,7 +288,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
                 * (blockWidth + spaceWidth)
                 + (topMargin + monthTextHeight);
 
-        for (int i = 1; i < ((lastWeeks + 1) * 7) + 1; i++) {
+        for (int i = 1; i < (lastWeeks * 7) + 1; i++) {
 
                 blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, 0));
             canvas.drawRect(x, y, x + blockWidth, y + blockWidth, blockPaint);
