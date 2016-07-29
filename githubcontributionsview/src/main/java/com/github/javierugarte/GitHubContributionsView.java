@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -27,6 +28,7 @@ import java.util.List;
 public class GitHubContributionsView extends View implements OnContributionsRequestListener {
 
     private int baseColor = Color.parseColor("#d6e685"); // default color of GitHub
+    private int baseBackgroundColor = Color.WHITE; // default color of GitHub
     private int textColor = Color.BLACK;
     private boolean displayMonth = false;
     private String username = "";
@@ -88,6 +90,15 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
      */
     public void setBaseColor(int color) {
         this.baseColor = color;
+        invalidate();
+    }
+
+    /**
+     * Sets the background color for this contributions view.
+     * @param baseBackgroundColor the color of the background
+     */
+    public void setBaseBackgroundColor(int baseBackgroundColor) {
+        this.baseBackgroundColor = baseBackgroundColor;
         invalidate();
     }
 
@@ -198,11 +209,16 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         float blockWidth = width / (float) horizontalBlockNumber * marginBlock;
         float spaceWidth = width / (float)  horizontalBlockNumber - blockWidth;
 
+        float topMargin = (displayMonth) ? 7f : 0;
         float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
 
-        monthTextPaint.setTextSize(monthTextHeight);
+        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin);
 
-        float topMargin = (displayMonth) ? 7f : 0;
+        // Background
+        blockPaint.setColor(baseBackgroundColor);
+        canvas.drawRect(0, (topMargin + monthTextHeight), width, height + monthTextHeight, blockPaint);
+
+        monthTextPaint.setTextSize(monthTextHeight);
 
         // draw the blocks
         int currentWeekDay = DatesUtils.getWeekDayFromDate(
@@ -251,11 +267,17 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
 
         float monthTextHeight = (displayMonth) ? blockWidth * 1.5F : 0;
 
+        float topMargin = (displayMonth) ? 7f : 0;
         monthTextPaint.setTextSize(monthTextHeight);
 
-        float topMargin = (displayMonth) ? 7f : 0;
+        int height = (int) ((blockWidth + spaceWidth) * 7 + topMargin);
 
-        float x = topMargin;
+        // Background
+        blockPaint.setColor(baseBackgroundColor);
+        canvas.drawRect(0, (topMargin + monthTextHeight), width, height + monthTextHeight, blockPaint);
+
+
+        float x = 0;
         float y = 0
                 * (blockWidth + spaceWidth)
                 + (topMargin + monthTextHeight);
@@ -273,7 +295,6 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
             } else {
                 y += blockWidth + spaceWidth;
             }
-
         }
     }
 
