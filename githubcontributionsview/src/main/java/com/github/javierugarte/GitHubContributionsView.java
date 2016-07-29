@@ -62,7 +62,6 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         rect = new Rect();
 
         monthTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        monthTextPaint.setColor(textColor);
         blockPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         blockPaint.setStyle(Paint.Style.FILL);
     }
@@ -216,6 +215,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         blockPaint.setColor(baseBackgroundColor);
         canvas.drawRect(0, (topMargin + monthTextHeight), width, height + monthTextHeight, blockPaint);
 
+        monthTextPaint.setColor(textColor);
         monthTextPaint.setTextSize(monthTextHeight);
 
         // draw the blocks
