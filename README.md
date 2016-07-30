@@ -24,7 +24,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 - Using Gradle
 
 ```groovy
-    compile 'com.github.javierugarte:githubcontributionsview:1.1.0'
+    compile 'com.github.javierugarte:githubcontributionsview:1.2.0'
 ```
 
 - Using Maven
@@ -33,7 +33,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
     <dependency>
         <groupId>com.github.javierugarte</groupId>
         <artifactId>githubcontributionsview</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
         <type>pom</type>
     </dependency>
 ```
@@ -42,33 +42,56 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 ## How to use this library
 
 
-- xml
-
-```xml
-
-	<com.github.javierugarte.GitHubContributionsView
-        android:id="@+id/github_contributions_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-	
-```
-
 - java
 
 ```java
-
 	GitHubContributionsView contributionView = (GitHubContributionsView) 
 		findViewById(R.id.github_contributions_view);
+
 	contributionView.loadUserName("javierugarte");
-	
 ```
 
-By default, the base color is #d6e685 (the first image) and no display the months. You can change this properties.
+- customize programatically
 
 ```java
-	contributionView.setBaseColor("#FF8A80");
-	contributionView.displayMonth(true);        
+	contributionsView.setBaseColor(R.color.colorAccent);
+	contributionsView.setBackgroundBaseColor(Color.TRANSPARENT);
+	contributionsView.setLastWeeks(50);
+	contributionsView.displayMonth(true);
+	contributionsView.setTextColor(R.color.colorPrimary);        
 ```
+-  xml
+
+```xml
+	<com.github.javierugarte.GitHubContributionsView
+	        android:id="@+id/github_contributions_view_attrs"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        app:baseColor="@color/colorAccent"
+	        app:displayMonth="true"
+	        app:textColor="@color/colorPrimary"
+	        app:username="javierugarte" />        
+```
+- attrs table
+
+| Attr name | Attr format | Example |
+|---|---|---|
+| baseColor | color | #D6E685 |
+| backgroundBaseColor | color | #FFFFFF |
+| displayMonth | boolean | true / false |
+| textColor | color | #000000 |
+| lastWeeks | integer | 50 |
+| username | string | javierugarte |
+
+
+<attr format="string"   name="username"/>
+        <attr format="color"    name="baseColor"/>
+        <attr format="color"    name="backgroundBaseColor"/>
+        <attr format="color"    name="textColor"/>
+        <attr format="boolean"  name="displayMonth"/>
+        <attr format="integer"  name="lastWeeks"/>
+
 
 ## Contribute
 [Issues](https://github.com/javierugarte/GithubContributionsView/issues)

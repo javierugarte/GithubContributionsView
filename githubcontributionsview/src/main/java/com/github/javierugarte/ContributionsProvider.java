@@ -13,7 +13,7 @@ public class ContributionsProvider {
     public final static String DATA_STRING = "data-count=\"";
     public final static String DATE_STRING = "data-date=\"";
 
-    public List<ContributionsDay> getContributions(String string, int lastWeeks) {
+    public List<ContributionsDay> getContributions(String string) {
         ArrayList<ContributionsDay> contributions = new ArrayList<>();
         int fillPos = -1;
         int dataPos = -1;
