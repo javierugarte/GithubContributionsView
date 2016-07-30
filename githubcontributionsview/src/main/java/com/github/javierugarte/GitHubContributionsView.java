@@ -97,7 +97,9 @@ public class GitHubContributionsView extends View
         lastWeeks = attributes.getInt(R.styleable.GitHubContributionsView_lastWeeks, lastWeeks);
         if (attributes.getString(R.styleable.GitHubContributionsView_username) != null) {
             username = attributes.getString(R.styleable.GitHubContributionsView_username);
-            loadUserName(username);
+            if (!isInEditMode()) {
+                loadUserName(username);
+            }
         }
     }
 
