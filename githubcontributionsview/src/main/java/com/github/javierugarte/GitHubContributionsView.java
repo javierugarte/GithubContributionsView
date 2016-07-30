@@ -127,6 +127,19 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
      * Sets the background color for this contributions view.
      * @param backgroundBaseColor the color of the background
      */
+    public void setBackgroundBaseColor(String backgroundBaseColor) {
+        try {
+            this.backgroundBaseColor = Color.parseColor(backgroundBaseColor);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        invalidate();
+    }
+
+    /**
+     * Sets the background color for this contributions view.
+     * @param backgroundBaseColor the color of the background
+     */
     public void setBackgroundBaseColor(int backgroundBaseColor) {
         this.backgroundBaseColor = backgroundBaseColor;
         invalidate();
