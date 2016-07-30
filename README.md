@@ -55,6 +55,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 
 ```java
 	contributionsView.setBaseColor(R.color.colorAccent);
+	contributionsView.setBaseEmptyColor("#EEEEEE");
 	contributionsView.setBackgroundBaseColor(Color.TRANSPARENT);
 	contributionsView.setLastWeeks(50);
 	contributionsView.displayMonth(true);
@@ -69,6 +70,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 	        android:layout_height="wrap_content"
 	        android:layout_margin="10dp"
 	        app:baseColor="@color/colorAccent"
+	        app:baseEmptyColor="#0FFF4081"
 	        app:displayMonth="true"
 	        app:textColor="@color/colorPrimary"
 	        app:username="javierugarte" />        
@@ -79,6 +81,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 |---|---|---|
 | baseColor | color | #D6E685 |
 | backgroundBaseColor | color | #FFFFFF |
+| baseEmptyColor | color | #EEEEEE |
 | displayMonth | boolean | true / false |
 | textColor | color | #000000 |
 | lastWeeks | integer | 50 |
