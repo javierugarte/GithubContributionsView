@@ -334,7 +334,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
         int width = rect.width();
 
         int verticalBlockNumber = 7;
-        int horizontalBlockNumber = getHorizontalBlockNumber((lastWeeks-1) * 7, verticalBlockNumber);
+        int horizontalBlockNumber = getHorizontalBlockNumber(lastWeeks * 7, verticalBlockNumber);
 
         float marginBlock = (1.0F - 0.1F);
         float blockWidth = width / (float) horizontalBlockNumber * marginBlock;
@@ -380,7 +380,7 @@ public class GitHubContributionsView extends View implements OnContributionsRequ
 
     // Static helpers
     private static int getHorizontalBlockNumber(int total, int divider) {
-        boolean isInteger = (total / divider) % 7 == 0;
+        boolean isInteger = total % divider == 0;
         int result = total / divider;
         return (isInteger) ? result : result + 1;
     }
