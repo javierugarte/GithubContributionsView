@@ -8,8 +8,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.javierugarte.listeners.OnContributionsListener;
-import com.github.javierugarte.listeners.OnContributionsRequestListener;
 
 import java.util.List;
 
@@ -50,6 +48,14 @@ public class ContributionsRequest {
 
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         requestQueue.add(strReq);
+    }
+
+    public interface OnContributionsRequestListener {
+
+        void onResponse(List<ContributionsDay> contributionsDay);
+
+        void onError(VolleyError error);
+
     }
 
 }

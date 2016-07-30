@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Search" />
+            android:text="Search"
+            tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/et_username"
@@ -32,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/btn_search"
             android:layout_toStartOf="@+id/btn_search"
-            android:text="javierugarte" />
+            android:text="javierugarte"
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
@@ -54,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="Last Week" />
+                android:text="Last Week"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/et_last_weeks"
@@ -62,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/btn_last_weeks"
                 android:layout_toStartOf="@+id/btn_last_weeks"
-                android:text="53" />
+                android:text="53"
+                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
 
@@ -79,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="Set Color" />
+                android:text="Set Color"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/et_base_color"
@@ -87,10 +92,73 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/btn_color"
                 android:layout_toStartOf="@+id/btn_color"
-                android:text="#d6e685" />
+                android:text="#d6e685"
+                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_background"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="bg"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/et_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btn_background"
+                android:layout_toStartOf="@+id/btn_background"
+                android:text="#FFFFFF"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_empty"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Empty"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/et_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btn_empty"
+                android:layout_toStartOf="@+id/btn_empty"
+                android:text="#EEEEEE"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -103,7 +171,8 @@
             android:id="@+id/switch_display_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Display month" />
+            android:text="Display month"
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
@@ -120,9 +189,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:baseColor="@color/colorAccent"
+        app:baseEmptyColor="#0FFF4081"
         app:displayMonth="true"
         app:textColor="@color/colorPrimary"
         app:username="javierugarte" />
-
 
 </LinearLayout>

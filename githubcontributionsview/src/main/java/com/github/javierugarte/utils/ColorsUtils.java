@@ -12,10 +12,15 @@ public class ColorsUtils {
      * Calculate the value for different color.
      *
      * @param baseColor Value of base color.
+     * @param emptyColor Value of empty color
      * @param level Level.
      * @return The value for the level of the base color.
      */
-    public static int calculateLevelColor(int baseColor, int level) {
+    public static int calculateLevelColor(int baseColor, int emptyColor, int level) {
+        if (level == 0) {
+            return emptyColor;
+        }
+
         return Color.rgb(
                 calculateR(Color.red(baseColor), level),
                 calculateG(Color.green(baseColor), level),

@@ -23,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText mBaseColorEditText;
     private Button mChangeColorButton;
 
+    private EditText mBaseEmptyColorEditText;
+    private Button mChangeEmptyColorButton;
+
+    private EditText mBbColorEditText;
+    private Button mChangeBgColorButton;
+
     private Switch mSwitchMonth;
 
     @Override
@@ -49,6 +55,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mContributionView.setBaseColor(mBaseColorEditText.getText().toString());
+            }
+        });
+
+        mBbColorEditText = (EditText) findViewById(R.id.et_background);
+        mChangeBgColorButton= (Button) findViewById(R.id.btn_background);
+        mChangeBgColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContributionView.setBackgroundBaseColor(mBbColorEditText.getText().toString());
+            }
+        });
+
+        mBaseEmptyColorEditText = (EditText) findViewById(R.id.et_empty);
+        mChangeEmptyColorButton = (Button) findViewById(R.id.btn_empty);
+        mChangeEmptyColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContributionView.setBaseEmptyColor(mBaseEmptyColorEditText.getText().toString());
             }
         });
 
