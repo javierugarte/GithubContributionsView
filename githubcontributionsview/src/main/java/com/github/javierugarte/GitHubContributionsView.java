@@ -31,6 +31,7 @@ public class GitHubContributionsView extends View
 
     private static final String INSTANCE_STATE = "saved_instance";
     private static final String INSTANCE_BASE_COLOR = "saved_base_color";
+    private static final String INSTANCE_BASE_EMPTY_COLOR = "saved_base_empty_color";
     private static final String INSTANCE_BACKGROUND_BASE_COLOR = "saved_bg_base_color";
     private static final String INSTANCE_TEXT_COLOR = "saved_text_color";
     private static final String INSTANCE_DISPLAY_MONTH = "saved_display_month";
@@ -40,6 +41,7 @@ public class GitHubContributionsView extends View
     private static final String BASE_COLOR = "#D6E685"; // default of Github
 
     private int baseColor = Color.parseColor(BASE_COLOR);
+    private int baseEmptyColor = Color.rgb(238, 238, 238);
     private int backgroundBaseColor = Color.TRANSPARENT;
     private int textColor = Color.BLACK;
     private boolean displayMonth = false;
@@ -88,6 +90,7 @@ public class GitHubContributionsView extends View
 
     protected void initAttributes(TypedArray attributes) {
         baseColor = attributes.getColor(R.styleable.GitHubContributionsView_baseColor, baseColor);
+        baseEmptyColor = attributes.getColor(R.styleable.GitHubContributionsView_baseEmptyColor, baseEmptyColor);
         backgroundBaseColor = attributes.getColor(R.styleable.GitHubContributionsView_backgroundBaseColor, backgroundBaseColor);
         textColor = attributes.getColor(R.styleable.GitHubContributionsView_textColor, textColor);
         displayMonth = attributes.getBoolean(R.styleable.GitHubContributionsView_displayMonth, displayMonth);
@@ -120,6 +123,29 @@ public class GitHubContributionsView extends View
      */
     public void setBaseColor(int color) {
         this.baseColor = color;
+        invalidate();
+    }
+
+    /**
+     * Set a base empty color for blocks without contributions.
+     * Supported formats See {@link Color#parseColor(String)}
+     * @param baseColor base color supported formats
+     */
+    public void setBaseEmptyColor(String baseColor) {
+        try {
+            this.baseEmptyColor = Color.parseColor(baseColor);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        invalidate();
+    }
+
+    /**
+     * Set a base empty color for blocks without contributions.
+     * @param color resource color
+     */
+    public void setBaseEmptyColor(int color) {
+        this.baseEmptyColor = color;
         invalidate();
     }
 
@@ -232,6 +258,7 @@ public class GitHubContributionsView extends View
         final Bundle bundle = new Bundle();
         bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
         bundle.putInt(INSTANCE_BASE_COLOR, baseColor);
+        bundle.putInt(INSTANCE_BASE_EMPTY_COLOR, baseEmptyColor);
         bundle.putInt(INSTANCE_BACKGROUND_BASE_COLOR, backgroundBaseColor);
         bundle.putInt(INSTANCE_TEXT_COLOR, textColor);
         bundle.putBoolean(INSTANCE_DISPLAY_MONTH, displayMonth);
@@ -304,7 +331,7 @@ public class GitHubContributionsView extends View
             + (topMargin + monthTextHeight);
 
         for (ContributionsDay day : contributionsFilter) {
-            blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, day.level));
+            blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, baseEmptyColor, day.level));
             canvas.drawRect(x, y, x + blockWidth, y + blockWidth, blockPaint);
 
             if (DatesUtils.isFirstDayOfWeek(day.year, day.month, day.day+1)) {
@@ -359,7 +386,7 @@ public class GitHubContributionsView extends View
 
         for (int i = 1; i < (lastWeeks * 7) + 1; i++) {
 
-                blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, 0));
+                blockPaint.setColor(ColorsUtils.calculateLevelColor(baseColor, baseEmptyColor, 0));
             canvas.drawRect(x, y, x + blockWidth, y + blockWidth, blockPaint);
 
             if (i % 7 == 0) {

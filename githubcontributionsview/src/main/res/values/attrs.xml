@@ -2,6 +2,7 @@
     <declare-styleable name="GitHubContributionsView">
         <attr format="string"   name="username"/>
         <attr format="color"    name="baseColor"/>
+        <attr format="color"    name="baseEmptyColor"/>
         <attr format="color"    name="backgroundBaseColor"/>
         <attr format="color"    name="textColor"/>
         <attr format="boolean"  name="displayMonth"/>
