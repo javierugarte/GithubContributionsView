@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.github.javierugarte.githubcontributionsview.R;
-import com.github.javierugarte.listeners.OnContributionsRequestListener;
 import com.github.javierugarte.utils.ColorsUtils;
 import com.github.javierugarte.utils.DatesUtils;
 
@@ -27,7 +26,8 @@ import java.util.List;
  * All right reserved.
  */
 
-public class GitHubContributionsView extends View implements OnContributionsRequestListener {
+public class GitHubContributionsView extends View
+        implements ContributionsRequest.OnContributionsRequestListener {
 
     private static final String INSTANCE_STATE = "saved_instance";
     private static final String INSTANCE_BASE_COLOR = "saved_base_color";
