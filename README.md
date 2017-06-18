@@ -24,7 +24,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 - Using Gradle
 
 ```groovy
-    compile 'com.github.javierugarte:githubcontributionsview:1.2.1'
+    compile 'com.github.javierugarte:githubcontributionsview:1.2.2'
 ```
 
 - Using Maven
@@ -33,7 +33,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
     <dependency>
         <groupId>com.github.javierugarte</groupId>
         <artifactId>githubcontributionsview</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2</version>
         <type>pom</type>
     </dependency>
 ```
@@ -45,7 +45,7 @@ Download [here](https://raw.githubusercontent.com/javierugarte/GithubContributio
 - java
 
 ```java
-	GitHubContributionsView contributionView = (GitHubContributionsView) 
+	GitHubContributionsView contributionView = (GitHubContributionsView)
 		findViewById(R.id.github_contributions_view);
 
 	contributionView.loadUserName("javierugarte");
@@ -121,4 +121,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
