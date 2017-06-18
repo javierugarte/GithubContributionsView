@@ -22,5 +22,5 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile project(path: ':githubcontributionsview')
-//    compile 'com.github.javierugarte:githubcontributionsview:1.2.1'
+//    compile 'com.github.javierugarte:githubcontributionsview:1.2.2'
 }
